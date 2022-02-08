@@ -1,10 +1,10 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
 
-from film import Film
+from components.film import Film
 
 
-class IMDBSpier(scrapy.Spider):
+class IMDBSpider(scrapy.Spider):
     name = 'imdb'
     custom_settings = {
         'FEED_EXPORT_ENCODING' : 'utf-8'
@@ -20,7 +20,7 @@ class IMDBSpier(scrapy.Spider):
             try: title = film.xpath('.//div[3]/h3/a/text()').get()
             except: title = None
             
-            try: year = film.xpath('.//div[3]/h3/span[2]/text()').get().replace('(', '').replace(')', '')
+            try: year = film.xpath('.//div[3]/h3/span[2]/text()').get().split(' ')[-1].replace('(', '').replace(')', '')
             except: year = None
             
             try: rating = film.xpath('.//div[3]/div/div/strong/text()').get()
@@ -52,19 +52,20 @@ class IMDBSpier(scrapy.Spider):
                 directors = []
                 actors = []
             
+            film = Film(
+                title=title,
+                year=year,
+                duration=duration,
+                rating=rating,
+                votes=votes,
+                genres=genres,
+                certificate=certificate,
+                synopsis=synopsis,
+                directors=directors,
+                actors=actors
+            )
             
-            yield {
-                'title': title,
-                'year': year,
-                'rating': rating,
-                'votes': votes,
-                'duration': duration,
-                'genres': genres,
-                'certificate': certificate,
-                'synopsis': synopsis,
-                'directors': directors,
-                'actors': actors
-            }
+            yield film.dict()
         
         next_page = response.css('a.next-page::attr(href)').get()
         yield response.follow(next_page, callback=self.parse)
@@ -76,6 +77,6 @@ if __name__ == '__main__':
         })
 
     for genre in ['action', 'adventure', 'animation', 'biography', 'comedy', 'crime', 'documentary', 'drama', 'family', 'fantasy', 'game-show', 'history', 'horror', 'music', 'musical', 'mystery', 'news', 'reality-tv', 'romance', 'sci-fi', 'sport', 'superhero', 'thriller', 'war', 'western']:
-        process.crawl(IMDBSpier, genre=genre)
+        process.crawl(IMDBSpider, genre=genre)
             
         process.start()
