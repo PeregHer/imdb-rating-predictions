@@ -35,7 +35,7 @@ def scrap_movies_from_imdb():
 
 schedule = CronSchedule("0 0 * * *", start_date=pendulum.now(tz="Europe/Paris"))
 
-storage = GitHub(repo="PeregHer/imdb-rating-predictions", path="workflow/flow.py")
+storage = GitHub(repo="PeregHer/imdb-rating-predictions", path="imdb_rating/workflow/flow.py")
 
 run_config = DockerRun(image="imdb-scraping:latest")
 
