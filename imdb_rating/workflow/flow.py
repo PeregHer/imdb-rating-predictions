@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 import pendulum
 import prefect
-from prefect import Flow, config, task
+from prefect import Flow, task
 from prefect.run_configs import DockerRun
 from prefect.schedules import CronSchedule
 from prefect.storage import GitHub
@@ -41,14 +41,10 @@ run_config = DockerRun(image="imdb-scraping:latest")
 
 
 with Flow(
-    "imdb_scraping", schedule=schedule, storage=storage, run_config=config
+    "imdb_scraping", schedule=schedule, storage=storage, run_config=run_config
 ) as flow:
     scrap_movies_from_imdb()
 
 
-flow.run_config = DockerRun(
-    image="imdb-scraping:latest",
-)
-
-flow.register(project_name="imdb")
+# flow.register(project_name="imdb-scraping", tags=["imdb-scraping"])
 # flow.run()

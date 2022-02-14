@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "imdb"
+name = "imdb_rating"
 version = "0.1.0"
 description = "IMDB Rating, a Python package for predicting upcoming movies from IMDB"
 authors = ["Pereg Hergoualc'h <pereg.hergoualch@gmail.com>"]
