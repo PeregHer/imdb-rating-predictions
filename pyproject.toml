@@ -1,8 +1,10 @@
 [tool.poetry]
 name = "imdb"
 version = "0.1.0"
-description = ""
+description = "IMDB Rating, a Python package for predicting upcoming movies from IMDB"
 authors = ["Pereg Hergoualc'h <pereg.hergoualch@gmail.com>"]
+readme = "README.md"
+
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -16,6 +18,7 @@ prefect = "^0.15.13"
 sqlmodel = "^0.0.6"
 pendulum = "^2.1.2"
 psycopg2-binary = "^2.9.3"
+black = "^22.1.0"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.6.0"
@@ -23,5 +26,5 @@ matplotlib = "^3.5.1"
 seaborn = "^0.11.2"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

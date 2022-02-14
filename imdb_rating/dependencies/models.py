@@ -13,7 +13,9 @@ class Movie(SQLModel, table=True):
     duration: Optional[int] = None
     votes: Optional[int] = None
     certificate: Optional[str] = None
-    image: Optional[HttpUrl] = 'https://m.media-amazon.com/images/S/sash/4FyxwxECzL-U1J8.png'
+    image: Optional[
+        HttpUrl
+    ] = "https://m.media-amazon.com/images/S/sash/4FyxwxECzL-U1J8.png"
     synopsis: Optional[str] = None
     genre1: Optional[str] = None
     genre2: Optional[str] = None
